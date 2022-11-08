@@ -171,4 +171,4 @@ try {
 
 ### Issues
 While everything seemed to on go smoothly during the project, I however encountered an issue when I got to the final step where I had to access the database from the internet through the browser. I got an error saying: **Error!: SQLSTATE[HY000] [1045] Access denied for user 'example_user'@'localhost' (using password: YES)**
-After several attempts at troubleshooting the issue, I reliased that I had not changed the password value in the PHP script to the new password that I created when I created the example_user.
+After several attempts at troubleshooting the issue, I reliased that I had not changed the password value in the PHP script to the new password that I created when I created the example_user..
