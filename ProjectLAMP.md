@@ -1,4 +1,6 @@
-# [WEB STACK IMPLEMENTATION (LAMP STACK) IN AWS](https://app.tango.us/app/workflow/ccf0ed53-ebe6-491b-a20c-5ffdeec18005?utm_source=markdown&utm_medium=markdown&utm_campaign=workflow%20export%20links)
+# [1) WEB STACK IMPLEMENTATION (LAMP STACK) IN AWS](https://app.tango.us/app/workflow/ccf0ed53-ebe6-491b-a20c-5ffdeec18005?utm_source=markdown&utm_medium=markdown&utm_campaign=workflow%20export%20links)
+
+
 
 
 ***
@@ -6,11 +8,11 @@
 ### 1. [A technology stack is a collection of frameworks and tools used in the creation of a software product. This collection of frameworks and technologies has been carefully selected to operate together to create a well-functioning program. They are abbreviations for individual techno](https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#LaunchInstances:)
 
 
-### 2. ### ASW account setup and provisioning of an Ubuntu Server
+### 2. AWS account setup and provisioning of an Ubuntu Server
 
 
 
-### 3. #### Steps
+### 3. Steps
 1. Signed up for an AWS account.
 2. Logged in as IAM user
 3. In the VPC console, I create the Security Group
@@ -20,24 +22,24 @@
 ![Step 3 screenshot](https://images.tango.us/workflows/ccf0ed53-ebe6-491b-a20c-5ffdeec18005/steps/3cad2552-551d-4d12-82dd-ebf617f74154/1751db9e-1409-4109-acd8-9eaba5082a4e.png?crop=focalpoint&fit=crop&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1366%3A625)
 
 
-### 4. ### INSTALLING APACHE AND UPDATING THE FIREWALL
-#### Steps
+### 4.  INSTALLING APACHE AND UPDATING THE FIREWALL
+ Steps
 
 
 ### 5. 1. Install Apache using Ubuntu’s package manager ‘apt', Run the following commands: To update a list of packages in package manager:
    ```
-   $  sudo apt update
+    sudo apt update
 ```
 ![Step 5 screenshot](https://images.tango.us/workflows/ccf0ed53-ebe6-491b-a20c-5ffdeec18005/steps/44817e91-237e-4feb-afac-4e4aa2313a88/f3c51316-e765-4f33-9e4c-d050c8ec9324.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=888%3A578)
 
 
 ### 6. 2. To run apache2 package installation:
 ```
-   $ sudo apt install apache2
+    sudo apt install apache2
 ```
 3. Next, verify that Apache2 is running as a service in the OS. run:
 ```
-   $ sudo systemctl status apache2
+    sudo systemctl status apache2
 ```
 4. The green light indicates Apache2 is running.
 ![Step 6 screenshot](https://images.tango.us/workflows/ccf0ed53-ebe6-491b-a20c-5ffdeec18005/steps/4852bfb3-3ba9-4a77-ad3f-be0cdc965337/61d45169-335e-4c82-a8a9-fe2a0e82bcc2.png?crop=focalpoint&fit=crop&fp-x=0.4916&fp-y=0.4317&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=888%3A578)
@@ -49,8 +51,8 @@
 ![Step 7 screenshot](https://images.tango.us/workflows/ccf0ed53-ebe6-491b-a20c-5ffdeec18005/steps/7ddd0f31-4667-43aa-ba08-209c17bebd25/b7315c94-c8c4-4b4c-807b-5bca42f49b3d.jpeg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1138%3A546)
 
 
-### 8. ### INSTALLING MYSQL
-#### Steps
+### 8. INSTALLING MYSQL
+Steps
 In this step, I install a Database Management System (DBMS) to be able to store and manage data for the site in a relational database.
 
 
@@ -95,8 +97,8 @@ sudo mysql -p
 ### 14. 7. Type exit and enter to exit the console.
 
 
-### 15. ### STEP 3 — INSTALLING PHP
-#### Steps
+### 15. STEP 3 — INSTALLING PHP
+Steps
 1. To install these 3 packages at once, run:
 ```
 sudo apt install php libapache2-mod-php php-mysql
@@ -112,8 +114,8 @@ sudo apt install php libapache2-mod-php php-mysql
 
 
 
-### 18. ### STEP 4 — CREATING A VIRTUAL HOST FOR YOUR WEBSITE USING APACHE
-#### Steps
+### 18. STEP 4 — CREATING A VIRTUAL HOST FOR YOUR WEBSITE USING APACHE
+ Steps
 1. Setting up a domain called projectlamp. Create the directory for projectlamp using ‘mkdir’. Run:
 ```
  sudo mkdir /var/www/projectlamp
@@ -137,13 +139,17 @@ sudo apt install php libapache2-mod-php php-mysql
 
 
 
-### 22. ```
+### 22.
+
+ ```
 <VirtualHost *:80>
     ServerName projectlamp
     ServerAlias www.projectlamp 
     ServerAdmin webmaster@localhost
 </VirtualHost >
 ```
+
+
 ![Step 22 screenshot](https://images.tango.us/workflows/ccf0ed53-ebe6-491b-a20c-5ffdeec18005/steps/5b7ff707-58c1-4d1b-a88a-0cd0e3500fbd/bfc95efb-1207-4574-b257-32339d43f9fd.jpeg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1354%3A556)
 
 
@@ -152,14 +158,14 @@ sudo apt install php libapache2-mod-php php-mysql
 
 ### 24.  6. use the ls command to show the new file in the sites-available directory:
  ```
-   $ sudo ls /etc/apache2/sites-available
+    sudo ls /etc/apache2/sites-available
 ```
 ![Step 24 screenshot](https://images.tango.us/workflows/ccf0ed53-ebe6-491b-a20c-5ffdeec18005/steps/0382c715-0efc-4fe7-859c-bc352314f58b/40cfc760-80f3-4cd3-add8-f93f6c41d40a.png?crop=focalpoint&fit=crop&fp-x=0.4916&fp-y=0.4317&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=888%3A578)
 
 
 ### 25. 7. Next, use a2ensite command to enable the new virtual host:
  ```
-   $ sudo a2ensite projectlamp
+    sudo a2ensite projectlamp
 ```
 ![Step 25 screenshot](https://images.tango.us/workflows/ccf0ed53-ebe6-491b-a20c-5ffdeec18005/steps/60d1e4af-c033-498a-93ef-05c948c73e0d/f06a592b-d3b4-4ddb-a6eb-1c2c6cae6e4c.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=888%3A578)
 
@@ -169,6 +175,10 @@ sudo apt install php libapache2-mod-php php-mysql
    $ sudo systemctl reload apache2
 ```
 ![Step 26 screenshot](https://images.tango.us/workflows/ccf0ed53-ebe6-491b-a20c-5ffdeec18005/steps/f617069b-94a9-4612-9e57-f2273f458943/4392efc7-6d91-4abd-a6a3-063882d7120e.png?crop=focalpoint&fit=crop&fp-x=0.4916&fp-y=0.4317&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=888%3A578)
+
+
+
+
 
 
 
@@ -197,14 +207,14 @@ sudo apt install php libapache2-mod-php php-mysql
 
 ### 30. 12. Ensure your configuration file doesn’t contain syntax errors, run: 
 ```
-   $ sudo apache2ctl configtest
+    sudo apache2ctl configtest
 ```
 ![Step 30 screenshot](https://images.tango.us/workflows/f5bb192a-e935-4faa-bce3-6f7ee92f44ee/steps/1e435298-d8e5-4ab8-8cfa-396bcf461bb9/9a029303-0d59-46d4-802e-f29e357f75e7.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=888%3A578)
 
 
 ### 31. 13. Finally, reload Apache so these changes take effect: 
 ```
-   $ sudo systemctl reload apache2
+    sudo systemctl reload apache2
 ```
 ![Step 31 screenshot](https://images.tango.us/workflows/f5bb192a-e935-4faa-bce3-6f7ee92f44ee/steps/1b8c5182-8d12-4077-8cd1-b57df908a3ca/223e70c8-8b3f-4fe7-a4db-90c19c136b74.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=888%3A578)
 
@@ -214,7 +224,7 @@ sudo apt install php libapache2-mod-php php-mysql
 * Type and run :
 
 ```
-$ sudo vi /var/www/projectlamp/index.html
+ sudo vi /var/www/projectlamp/index.html
 ```
 
 see my input :
@@ -226,28 +236,32 @@ see my input :
 ### 33. OR
 
 
-### 34.  14. The website is active, but the webroot/var/www/projectlamp is still empty. Create an index.html file in that location so that we can test that the virtual host works as expected:
+### 8.  14. The website is active, but the webroot/var/www/projectlamp is still empty. Create an index.html file in that location so that we can test that the virtual host works as expected:
 
 * Type and run :
 
 
-### 34. ```
-   $ sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html
+### 34. 
+
 ```
+    sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html
+```
+
 ![Step 34 screenshot](https://images.tango.us/workflows/f5bb192a-e935-4faa-bce3-6f7ee92f44ee/steps/8cfd0449-be52-4b80-a683-3ddb9323905f/639f01f7-b4b8-41e9-abe0-24996637632e.jpeg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1356%3A558)
 
 
 ### 35. 15. Reload the public IP to see changes to the apache2 default page.
 
 
-### 36. ### STEP 5 — ENABLE PHP ON THE WEBSITE
-#### Steps
+### 36.  STEP 5 — ENABLE PHP ON THE WEBSITE
+ Steps
 ```
 1. With the default DirectoryIndex settings on Apache, a file named index.html will always take precedence over an index.php file. To make index.php file tak precedence need to edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive.
 ```
 
 
 ### 37. This is useful for setting up maintenance pages in PHP applications, by creating a temporary index.html file containing an informative message to visitors. Because this page will take precedence over the index.php page, it will then become the landing page for the application. 
+
 ```
 Once maintenance is over, the index.html is renamed or removed from the document root, bringing back the regular application page.
 ```
@@ -256,36 +270,38 @@ Once maintenance is over, the index.html is renamed or removed from the document
 ### 38. In case you want to change this behavior, you’ll need to edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive:
 
 ```
-   $ sudo vim /etc/apache2/mods-enabled/dir.conf
+   sudo vim /etc/apache2/mods-enabled/dir.conf
 ```
 
 
-### 39. <IfModule mod_dir.c>
+### 39. 
+<IfModule mod_dir.c>
         #Change this:
         #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
         #To this:
         DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
 </IfModule>
+
 ![Step 39 screenshot](https://images.tango.us/workflows/f5bb192a-e935-4faa-bce3-6f7ee92f44ee/steps/07b3454d-f5e7-4c62-80cd-8965af15e804/1bf3dacd-0f53-4449-ab7b-6193b9c105ae.jpeg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1363%3A549)
 
 
 ### 40. After saving and closing the file, you will need to reload Apache so the changes take effect:
 
 ```
-$ sudo systemctl reload apache2
+ sudo systemctl reload apache2
 ```
 
 
 
-### 41. * Finally, we will create a PHP Script to test the PHP is correctly installed and configured on our Server.
-* Now that we have a custom location to host our website's files and folders, 
+### 41.  Finally, we will create a PHP Script to test if the PHP is correctly installed and configured on our Server.
+ Now that we have a custom location to host our website's files and folders, 
 
 
 ### 42. we'll create a PHP test script to confirm that Apache is able to handle and process requests for PHP files.
 * Create a new file named index.php inside our custom web root folder:
 
 ```
-$ vim /var/www/projectlamp/index.php
+ vim /var/www/projectlamp/index.php
 ```
 
 
@@ -295,24 +311,24 @@ $ vim /var/www/projectlamp/index.php
 <?php
 phpinfo();
 ```
-![Step 18 screenshot](https://images.tango.us/workflows/f5bb192a-e935-4faa-bce3-6f7ee92f44ee/steps/9fb10c6e-b9c3-4dc4-a60b-c23d2b8c13c9/3d18db69-f46d-47f1-b386-f262898effcf.jpeg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1366%3A560)
+![Step 43 screenshot](https://images.tango.us/workflows/f5bb192a-e935-4faa-bce3-6f7ee92f44ee/steps/9fb10c6e-b9c3-4dc4-a60b-c23d2b8c13c9/3d18db69-f46d-47f1-b386-f262898effcf.jpeg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1366%3A560)
 
 
 ### 44.  Save and close the file, then refresh the page to see changes.
-![Step 45 screenshot](https://images.tango.us/workflows/f5bb192a-e935-4faa-bce3-6f7ee92f44ee/steps/c17cfd4f-2e40-4784-98b4-60ad29f416b9/117560c7-8089-4f5f-9883-89027590cd6f.jpeg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1365%3A696)
+![Step 44 screenshot](https://images.tango.us/workflows/f5bb192a-e935-4faa-bce3-6f7ee92f44ee/steps/c17cfd4f-2e40-4784-98b4-60ad29f416b9/117560c7-8089-4f5f-9883-89027590cd6f.jpeg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&fp-z=1.0000&w=1200&mark-w=0.2&mark-pad=0&mark64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmsucG5n&ar=1365%3A696)
 
 
-### 46. * This page provides information about your server from the perspective of PHP. It is useful for debugging and ensuring that your settings are being applied correctly.
+### 45.  This page provides information about your server from the perspective of PHP. It is useful for debugging and ensuring that your settings are being applied correctly.
 
 
-### 47. * If you can see this page in your browser, then your PHP installation is working as expected.
+### 46.  If you can see this page in your browser, then your PHP installation is working as expected.
 
 
-### 48. * After checking the relevant information about your PHP server through that page, it’s best to remove the file you created as it contains sensitive information about your PHP environment -and your Ubuntu server. You can use rm to do so:
+### 47.  After checking the relevant information about your PHP server through that page, it’s best to remove the file you created as it contains sensitive information about your PHP environment -and your Ubuntu server. You can use rm to do so:
 
 \`\`\`
 
-$ sudo rm /var/www/projectlamp/index
+sudo rm /var/www/projectlamp/index
 
 \`\`\`
 
