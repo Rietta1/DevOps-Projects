@@ -1,9 +1,9 @@
-# [1) WEB STACK IMPLEMENTATION (LAMP STACK) IN AWS]
+#  WEB STACK IMPLEMENTATION (LAMP STACK) IN AWS
 
 
 ***
 
-#### 1. [A technology stack is a collection of frameworks and tools used in the creation of a software product. This collection of frameworks and technologies has been carefully selected to operate together to create a well-functioning program. They are abbreviations for individual techno]
+#### 1. A technology stack is a collection of frameworks and tools used in the creation of a software product. This collection of frameworks and technologies has been carefully selected to operate together to create a well-functioning program. They are abbreviations for individual techno
 
 
 #### 2. AWS account setup and provisioning of an Ubuntu Server
@@ -318,7 +318,7 @@ phpinfo();
 8.  This page provides information about your server from the perspective of PHP. It is useful for debugging and ensuring that your settings are being applied correctly.
 
 
-9.  If you can see this page in your browser, then your PHP installation is working as expected..
+9.  If you can see this page in your browser, then your PHP installation is working as expected.
 
 
 10.  After checking the relevant information about your PHP server through that page, it’s best to remove the file you created as it contains sensitive information about your PHP environment -and your Ubuntu server. You can use rm to do so:
