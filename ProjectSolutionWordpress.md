@@ -12,7 +12,9 @@ To function, WordPress must be installed on a web server for it to work, either 
 
 
 
-![1_lSIpD4-3C6F47yFBXjVvSQ](https://user-images.githubusercontent.com/101978292/214528014-24b0b4af-4c24-4b08-95d7-90986c9004d3.png)
+
+![1_lSIpD4-3C6F47yFBXjVvSQ](https://user-images.githubusercontent.com/101978292/214528322-b6d03c2e-789d-4d25-bd48-d4279913a47c.png)
+
 
 
 ![image](https://user-images.githubusercontent.com/85270361/134702570-9fe3ec31-4ba7-4545-8f47-1104eda0a93d.png)
