@@ -159,7 +159,7 @@ sudo mkfs -t ext4 /dev/webdata-vg/logs-lv
 ```
 sudo mkdir -p /var/www/html
 ```
- and mount **/var/www/html** on Mount /var/www/html on apps-lv logical volume : 
+ and mount **/var/www/html** on apps-lv logical volume : 
  ```
  sudo mount /dev/webdata-vg/apps-lv /var/www/html/
  ```
