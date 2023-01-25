@@ -85,6 +85,8 @@ command to see all mounts and free space on your server
 5. Use gdisk utility to create a single partition on each of the 3 disks 
 ```
 sudo gdisk /dev/xvdf
+sudo gdisk /dev/xvdg
+sudo gdisk /dev/xvdh
 ```
 
 6. A prompt pops up, type **n** to create new partition, enter no of partition(1), hex code is **8e00**, **p** to view partition and **w** to save newly created partition.
@@ -190,6 +192,7 @@ and copy the both the apps-vg and logs-vg UUID (Excluding the double quotes)
 vi /etc/fstab
 ```
  to open editor and update using the UUID you copied.
+
 ![pix13](https://user-images.githubusercontent.com/74002629/182375342-2c0713a4-946d-4e2c-a756-84472eb1ec34.PNG)
 
 25. Test the configuration and reload the daemon: 
@@ -202,11 +205,14 @@ sudo systemctl daemon-reload
 
 
 ### Part 2 -Install WordPress for connecting to a remote MySQL database server.
-29. Update the repository: `
+
+29. Update the repository: 
+
 ```
 sudo yum -y update
 ```
 30. Install wget, Apache and it’s dependencies: 
+
 ```
 sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json
 ```
@@ -216,6 +222,7 @@ sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json
 sudo systemctl enable httpd
 sudo systemctl start httpd
 ```
+
 ![pix17](https://user-images.githubusercontent.com/74002629/182375448-cdc35ab4-7f85-43f9-be40-b8e3419513c9.PNG)
 
 32. install PHP and it’s depemdencies:
@@ -238,11 +245,13 @@ sudo dnf module enable php:remi-8.0 -y
 ```
 
 33. Restart Apache: 
+
 ```
 sudo systemctl restart httpd
 ```
 
-34. Download wordpress and copy wordpress to var/www/html
+34. Download wordpress and copy wordpress to **var/www/html**
+
 ```
 mkdir wordpress
 cd   wordpress
@@ -252,32 +261,41 @@ sudo rm -rf latest.tar.gz
 cp wordpress/wp-config-sample.php wordpress/wp-config.php
 cp -R wordpress /var/www/html/
 ```
+
 ![pix18](https://user-images.githubusercontent.com/74002629/182390571-8c367a9a-531b-44b2-b499-2ca2850286b5.PNG)
 
 35. Configure SELinux Policies:
+
 ```
 sudo chown -R apache:apache /var/www/html/wordpress
 sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
 sudo setsebool -P httpd_can_network_connect=1
 ```
+
 ![pix19](https://user-images.githubusercontent.com/74002629/182390591-c618394d-4064-47e1-bc80-971665d5fcf8.PNG)
 
 ### Step 3 — Install MySQL on your DB Server EC2
-36. Runn the following:
+36. Run the following:
+
 ```
 sudo yum update
 sudo yum install mysql-server
 ```
+
 37. Verify that the service is up and running by using `sudo systemctl status mysqld`. If the service is not running, restart the service and enable it so it will be running even after reboot:
+
 ```
 sudo systemctl restart mysqld
 sudo systemctl enable mysqld
 ```
+
 ![pix20](https://user-images.githubusercontent.com/74002629/182390616-7a7f9464-5df3-4997-8a1b-a3ce3ae712d3.PNG)
 
 
 ### Part 4 - Prepare the Database Server
+
 27. Launch a second RedHat EC2 instance and name it **DB Server**
+
 28. Repeat the same steps as for the Web Server, but instead of **apps-lv** create **db-lv** and mount it to **/db** directory instead of /var/www/html/.
 
 * Attach all three volumes one by one to your Web Server EC2 instance
@@ -287,7 +305,8 @@ sudo systemctl enable mysqld
  ```
   command to inspect what block devices are attached to the server. The 3 newly
 created block devices are names **xvdf, xvdh, xvdg**
-* Use 
+* Use
+
 ```
 df -h
 ``` 
@@ -296,8 +315,11 @@ command to see all mounts and free space on your server
 
 
 * Use gdisk utility to create a single partition on each of the 3 disks 
+
 ```
 sudo gdisk /dev/xvdf
+sudo gdisk /dev/xvdg
+sudo gdisk /dev/xvdh
 ```
 
 * A prompt pops up, type **n** to create new partition, enter no of partition(1), hex code is **8e00**, **p** to view partition and **w** to save newly created partition.
@@ -306,22 +328,29 @@ sudo gdisk /dev/xvdf
 
 
 * Install **lvm2** package by typing: 
+
 ```
 sudo yum install lvm2
 ``` 
+
 Run 
+
 ```
 sudo lvmdiskscan
 ```
+
  command to check for available partitions.
 
 * Create physical volume to be used by lvm by using the pvcreate command: 
+
 ```
 sudo pvcreate /dev/xvdf1
 sudo pvcreate /dev/xvdg1
 sudo pvcreate /dev/xvdh1
 ```
-* To check if the PV have been created type: 
+
+* To check if the PV have been created type:
+
 ```
 sudo pvs
 ```
@@ -354,14 +383,17 @@ sudo lsblk
 ```
 
 * Verify Logical Volume has been created successfully by running: 
+
 ```
 sudo lvs
 ```
+
 * Next, format the logical volumes with ext4 filesystem: 
 
 ```
 sudo mkfs -t ext4 /dev/vg-databases/db-lv
 ```
+
 * We need to create /db directory to store our database files**
 
 ```
@@ -397,7 +429,7 @@ $ sudo rsync -r /var/log/ /home/recovery/logs/
 * We need to **Mount /var/log on logs-lv logical volume**
 
 ```
-$ sudo mount /dev/dbdata-vg/logs-lv /var/log
+$ sudo mount /dev/vg-database/logs-lv /var/log
 ```
 
 * We need to restore log files back into /**var/log directory.**
@@ -410,16 +442,20 @@ $ sudo cp -r /home/recovery/logs/.* /var/log
 
 * We need to update the `/etc/fstab` file so that the mount configuration will persist upon restart of the server.
 
-* The UUID of the device will be used to update the /etc/fstab file to get the UUID type: 
+* The UUID of the device will be used to update the `/etc/fstab` file to get the UUID type:
+
 ```
 sudo blkid
 ```
+
  and copy the both the apps-vg and logs-vg UUID (Excluding the double quotes)
 
 * Type 
+
 ```
 sudo vi /etc/fstab
 ```
+
  to open editor and update using the UUID you copied.
 
 Test the configuration and reload the daemon:
@@ -430,6 +466,7 @@ sudo systemctl daemon-reload
 ```
 
 Verify your setup by running 
+
 ```
 df -h
 ```
@@ -440,6 +477,7 @@ df -h
 38. Configure DB to work with Wordpress with the code below.
 
 Log into mysql
+
 ```
 sudo mysql
 ```
@@ -462,7 +500,8 @@ Create database and user
 ```
 mysql -u root -p
 CREATE DATABASE wordpress;
-CREATE USER `myuser`@`<Web-Server-Private-IP-Address>` OR
+CREATE USER `myuser`@`<Web-Server-Private-IP-Address>`
+ OR
 CREATE USER `myuser`@`%`
 IDENTIFIED BY 'password';
 GRANT ALL ON wordpress.* TO 'myuser'@'<Web-Server-Private-IP-Address>';
@@ -476,9 +515,11 @@ exit
 ![pix21](https://user-images.githubusercontent.com/74002629/182390638-84cd0f8d-66aa-4c9a-a3d9-17f9dad7f00a.PNG)
 
 Set the binding address
+
 ```
 sudo vi /etc/my.cnf
 ```
+
 Add this script at the end of the exiting script
 
 ```
@@ -494,11 +535,15 @@ sudo systemctl restart mysqld
 
 
 ### Step 6 — Configure WordPress to connect to remote database.
-39. Make sure to open MySQL port 3306 on DB Server EC2. For extra security, you shall allow access to the DB server ONLY from your Web Server’s IP address, so in the Inbound Rule configuration specify source as /32
+39. Make sure to open MySQL port 3306 on DB Server EC2. 
+For extra security, you shall allow access to the DB server ONLY from your *Web Server’s IP address*, so in the Inbound Rule configuration specify source as /32
+
 40. Install MySQL client and test that you can connect from your Web Server to your DB server by using mysql-client
+
 ```
 sudo yum install mysql
 ```
+
 41. Open config.php and edit the db_name, user, password and host to your database details 
 
 *note: for the host add your webserver private ip address*
@@ -506,6 +551,7 @@ sudo yum install mysql
 ```
 sudo vi wp-config.php
 ```
+
 Edit **DB_NAME** to `wordpress`, **DB_USER** to `myuser` and **DB_PASSWORD** to `password`
 **DB_HOST** to `172.31.83.36`
 
@@ -523,6 +569,7 @@ sudo mysql -h 172.31.83.36 -u myuser -p
 ```
 
 44. Verify if you can successfully execute SHOW DATABASES; command and see a list of existing databases.
+
 ![pix26](https://user-images.githubusercontent.com/74002629/182393684-bb4357e0-14c2-44ba-80d2-eca86b5d7148.PNG)
 
 
@@ -544,7 +591,8 @@ sudo setsebool -P httpd_can_network_connect_db 1
 
 
  46. Enable TCP port 80 in Inbound Rules configuration for your Web Server EC2 (enable from everywhere 0.0.0.0/0 or from your workstation’s IP)
-47. Try to access from your browser the link to your WordPress http://<Web-Server-Public-IP-Address>/wordpress/
+47. Try to access from your browser the link to your WordPress http:// < Web-Server-Public-IP-Address >/wordpress/
+
 ![pix28](https://user-images.githubusercontent.com/74002629/182393673-8c9cc21a-fee6-4c40-9ab5-034f968dafc5.PNG)
 ![pix29](https://user-images.githubusercontent.com/74002629/182393677-7204a1e6-3c1f-4b04-969c-5439762a4029.PNG)
   
