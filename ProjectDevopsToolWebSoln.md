@@ -309,7 +309,7 @@ dh -f
 
 sudo vi /etc/fstab
 
-172.31.85.14:/mnt/logs /var/log/httpd nfs defaults 0 0
+172.31.63.145:/mnt/logs /var/log/httpd nfs defaults 0 0
 
 ```
 
