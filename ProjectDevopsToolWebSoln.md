@@ -285,7 +285,7 @@ sudo dnf install php-{fpm,common,mysqlnd,cli}
 9. Verify that Apache files and directories are available on the Web Server in **/var/www** and also on the NFS server in **/mnt/apps.**
 
 ```
-ls var/www
+ls /var/www
 
 ls /mnt/apps
 
@@ -426,8 +426,7 @@ SELECT user , host , plugin from mysql.user;
 *Remove the apache default page which resides on your public ip, so that the public ip redirects to your tooling website*
 
 ```
-sudo mv /etc/httpd/conf.d/welcome.conf
-/etc/httpd/conf.d/welcome.backup
+sudo mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.backup
 
 ```
 *Restart Apache `sudo systemctl restart httpd`*
