@@ -303,7 +303,7 @@ ls /mnt/apps
 
 
 ```
-sudo mount -t nfs -o rw,nosuid 172.31.85.14:/mnt/logs /var/log/httpd
+sudo mount -t nfs -o rw,nosuid 172.31.63.145:/mnt/logs /var/log/httpd
 
 dh -f
 
