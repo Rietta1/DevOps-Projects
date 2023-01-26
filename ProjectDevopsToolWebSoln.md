@@ -279,12 +279,7 @@ php -v
 sudo dnf install php-{fpm,common,mysqlnd,cli}
 
 ```
-```
-sudo dnf install php php-opcache php-gd php-curl php-mysqlnd
-sudo systemctl start php-fpm
-sudo systemctl enable php-fpm
-setsebool -P httpd_execmem 1
-```
+
 8. Repeat steps 1-5 for the other 2 webservers
 
 9. Verify that Apache files and directories are available on the Web Server in **/var/www** and also on the NFS server in **/mnt/apps.**
@@ -353,12 +348,12 @@ sudo cp -R html/. /var/www/html
 ```
 
 **NOTE: That apache webserver might not be able to start because of the security presently active on our server, You can either disable the SELinux security with
-this command and turned the **selinux enforcing** to disabled and restart the system after that:*
+this command and turned the **selinux enforcing** to **selinux=`disabled`** and restart the system after that:*
 
 ```
 sudo setenforce 0
 
-sudo nano /etc/selinux/config
+sudo vi /etc/selinux/config
 ```
 
 18. Change the ownership of **html** and **log** folder to Apache and also change the permission of the **html** and **log** folder to Apache
@@ -414,7 +409,7 @@ sudo mysql -h 172.31.94.254 -u webaccess -p
 
 ```
 sudo mysql
- show databases;
+show databases;
 use tooling;
 show tables;
 select * from users;
@@ -435,6 +430,7 @@ sudo mv /etc/httpd/conf.d/welcome.conf
 /etc/httpd/conf.d/welcome.backup
 
 ```
+*Restart Apache `sudo systemctl restart httpd`*
 
 ![pix17](https://user-images.githubusercontent.com/74002629/183053304-87db560b-8cbb-448e-96e1-caae58c2f0c1.PNG)
 
