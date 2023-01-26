@@ -239,7 +239,7 @@ sudo vi /etc/fstab
 5. Add the following line in the configuration file: 
 
 ```
-172.31.85.14:/mnt/apps /var/www nfs defaults 0 0
+172.31.63.145:/mnt/apps /var/www nfs defaults 0 0
 
 ```
 
