@@ -230,6 +230,9 @@ sudo mount -t nfs -o rw,nosuid 172.31.63.145:/mnt/apps /var/www
 ```
 df -h
 ```
+
+![w1](https://user-images.githubusercontent.com/101978292/215032356-02e6afde-603a-45d5-9293-07a4c6d22a93.jpg)
+
  Make sure that the changes will persist on Web Server after reboot:
 
  ```
@@ -291,8 +294,8 @@ ls /mnt/apps
 
 ```
 
+![w2](https://user-images.githubusercontent.com/101978292/215032708-dee45934-e4e8-4bfb-ab2d-ae82c1d374b5.jpg)
 
-![pix11](https://user-images.githubusercontent.com/74002629/183030599-7de0f18a-8050-4e42-bf6d-3307d8ff0ac7.PNG)
 
 10. Locate the log folder for Apache on the Web Server and mount it to NFS server’s export for logs. Repeat step №4 and №5 to make sure the mount point will persist after reboot:
 
@@ -331,7 +334,8 @@ git init
 
 15. Then run: `git clone https://github.com/darey-io/tooling.git`
 
-![pix12](https://user-images.githubusercontent.com/74002629/183052304-f20cf002-f862-42c2-b71c-a8619b16caaf.PNG)
+
+![w2a](https://user-images.githubusercontent.com/101978292/215032622-9e7d7f30-bf09-4afb-b2a3-26026e3c07cb.jpg)
 
 16. Deploy the tooling website’s code to the Webserver. Ensure that the html folder from the repository is deployed to **/var/www/html**
 
@@ -419,7 +423,7 @@ SELECT user , host , plugin from mysql.user;
 
 25. You will find the login details to the website; the username: `admin` and password: `admin`
 
-![pix16](https://user-images.githubusercontent.com/74002629/183053301-e021a287-f188-441e-96d0-022663e79a2d.PNG)
+![4](https://user-images.githubusercontent.com/101978292/215033025-dcf1becb-b20c-448a-868a-943898877a96.jpg)
 
 26. Finally, open the website in your browser with the **public IP/login.php** of the webserver and make sure you can login into the websute with myuser user.
 
@@ -431,6 +435,7 @@ sudo mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.backup
 ```
 *Restart Apache `sudo systemctl restart httpd`*
 
-![pix17](https://user-images.githubusercontent.com/74002629/183053304-87db560b-8cbb-448e-96e1-caae58c2f0c1.PNG)
+![Screenshot 2023-01-26 121339](https://user-images.githubusercontent.com/101978292/215033197-afdb6b7a-5897-400a-aad2-f3ca2e6a8cb2.jpg)
 
-![pix18](https://user-images.githubusercontent.com/74002629/183053318-df3c9915-a54d-46d2-b798-5f54e3d8bb43.PNG)
+
+![Screenshot 2023-01-26 132853](https://user-images.githubusercontent.com/101978292/215033286-2884c9d9-88e2-404e-a80a-13e8c3cdd450.jpg)
