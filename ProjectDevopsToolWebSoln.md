@@ -55,12 +55,14 @@ sudo pvcreate /dev/xvdf1
 sudo pvcreate /dev/xvdg1
 sudo pvcreate /dev/xvdh1
 ```
-![pix2](https://user-images.githubusercontent.com/74002629/183050437-d9a55dbb-ca1d-4b6f-8bb5-5f2c5bd1aa72.PNG)
+
 
 9. To check if the PV have been created successfully, run: 
 ```
 sudo pvs
 ```
+![n2](https://user-images.githubusercontent.com/101978292/215041997-9ba44095-e046-48db-b758-08c8198031cd.jpg)
+
 10. Next, Create the volume group and name it webdata-vg: 
 
 ```
@@ -78,12 +80,14 @@ sudo lvcreate -n lv-apps -L 9G webdata-vg
 sudo lvcreate -n lv-logs -L 9G webdata-vg
 sudo lvcreate -n lv-opt -L 9G webdata-vg
 ```
-![pix5](https://user-images.githubusercontent.com/74002629/183050487-41f518eb-ffcb-46a2-84e0-36839d51b6ed.PNG)
 
 13. Verify Logical Volume has been created successfully by running:
  ```
 sudo lvs
 ```
+![n3a](https://user-images.githubusercontent.com/101978292/215041385-6465717a-478c-4b15-a85a-7392fd6f13c6.jpg)
+
+
 14. Next, format the logical volumes with ext4 filesystem:
 
 ```
@@ -136,7 +140,7 @@ sudo chmod -R 777 /mnt/opt
 sudo systemctl restart nfs-server.service
 ```
 
-![pix9](https://user-images.githubusercontent.com/74002629/183051442-69ca2423-75d4-4b3c-9ac1-afe5ee373b0b.PNG)
+![n6a](https://user-images.githubusercontent.com/101978292/215041756-71a549fd-6acb-49a7-b709-f5a852393a90.jpg)
 
 20. In your choosen text editor, configure access to NFS for clients within the same subnet (my Subnet CIDR – 172.31.80.0/20 ):
 
@@ -202,7 +206,7 @@ show databases;
 use tooling;
 ```
 
-![pix10](https://user-images.githubusercontent.com/74002629/183051459-c2a2c22e-44ec-453b-9d2b-44000ceccae1.PNG)
+![d1](https://user-images.githubusercontent.com/101978292/215042305-0fab00cf-3bca-45e9-95b2-a66222d9931c.jpg)
 
 
 ### Step 3 — Prepare the Web Servers
@@ -440,6 +444,9 @@ SELECT user , host , plugin from mysql.user;
 sudo mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.backup
 
 ```
+
+![Screenshot 2023-01-26 121613](https://user-images.githubusercontent.com/101978292/215042582-f370625a-fbd0-4b8b-bd30-193f05d67afa.jpg)
+
 *Restart Apache `sudo systemctl restart httpd`*
 
 ![Screenshot 2023-01-26 121339](https://user-images.githubusercontent.com/101978292/215033197-afdb6b7a-5897-400a-aad2-f3ca2e6a8cb2.jpg)
