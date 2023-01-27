@@ -20,7 +20,9 @@ As part of a DevOps team, we will create a tooling website solution that allows 
 2. Provision 1 Ubuntu 22.04 for the the databaes server.
 
 
-![1](https://user-images.githubusercontent.com/101978292/215043737-cde94744-31d5-4d8d-85ca-cfd8f050eaa5.jpg)
+
+
+![1a](https://user-images.githubusercontent.com/101978292/215045104-1c75d649-4c51-4399-81de-245e8120f28c.jpg)
 
 
 ### Step 1 - Prepare NFS server
