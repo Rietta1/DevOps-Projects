@@ -10,12 +10,18 @@ Network File System (NFS) is a protocol that allows a computer to access files o
 As part of a DevOps team, we will create a tooling website solution that allows easy access to DevOps tools within the corporate infrastructure.
 
 
-![tool1](https://user-images.githubusercontent.com/85270361/153243141-d22931b1-7f87-4102-b149-3fca416c7235.PNG)
+
+
+![2](https://user-images.githubusercontent.com/101978292/215043712-0b66ff48-d898-4fc2-8b7f-64bb68ba1052.jpg)
 
 
 ### Prerequites
 1. Provision 4 Red Hat Enterprise Linux 9. One will be the NFS server and the other as the Web servers.
 2. Provision 1 Ubuntu 22.04 for the the databaes server.
+
+
+![1](https://user-images.githubusercontent.com/101978292/215043737-cde94744-31d5-4d8d-85ca-cfd8f050eaa5.jpg)
+
 
 ### Step 1 - Prepare NFS server
 1. Create 3 volumes of 10gb each and attach all three volumes one by one to your NFS Server EC2 instance
