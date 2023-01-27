@@ -294,7 +294,8 @@ ls /mnt/apps
 
 ```
 
-![w2](https://user-images.githubusercontent.com/101978292/215032708-dee45934-e4e8-4bfb-ab2d-ae82c1d374b5.jpg)
+
+![w4](https://user-images.githubusercontent.com/101978292/215035850-178d089c-1aad-429c-8f11-9294a029f5ec.jpg)
 
 
 10. Locate the log folder for Apache on the Web Server and mount it to NFS server’s export for logs. Repeat step №4 and №5 to make sure the mount point will persist after reboot:
@@ -383,7 +384,8 @@ sudo chmod -R 755 /var/www/html
 sudo vi /var/www/html/functions.php
 ```
 
-![pix15](https://user-images.githubusercontent.com/74002629/183052617-0bc05ae2-997f-4384-a157-558d707f34f0.PNG)
+![w5](https://user-images.githubusercontent.com/101978292/215035954-6c242789-fd0a-4dd8-bc7c-523e8b27699a.jpg)
+
 
 21. Apply tooling-db.sql script to your database using this command 
 `mysqli_connect ('172.31.94.254', 'webaccess', 'password', 'tooling')`
