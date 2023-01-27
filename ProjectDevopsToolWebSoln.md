@@ -45,7 +45,9 @@ then run
 sudo lvmdiskscan
 ```
  command to check for available partitions.
-![Pix1](https://user-images.githubusercontent.com/74002629/183050422-48ff7ae2-982d-4ac7-9cf2-254a123a860c.PNG)
+
+
+![n1](https://user-images.githubusercontent.com/101978292/215037731-2f414e18-70aa-473e-8fc0-36b0d57f97d7.jpg)
 
 8. Create physical volume to be used by lvm by using the pvcreate command:
 ```
@@ -90,7 +92,8 @@ sudo mkfs -t xfs /dev/webdata-vg/lv-logs
 sudo mkfs -t xfs /dev/webdata-vg/lv-opt
 ```
 
-![pix7](https://user-images.githubusercontent.com/74002629/183050528-14284dad-e0f5-4858-8ed5-b9fd29c12032.PNG)
+![n4](https://user-images.githubusercontent.com/101978292/215037895-edbbd1b7-69e4-44be-9305-bfe75d15e3ab.jpg)
+
 
 15. Next, create mount points for the logical volumes. Create **/mnt/apps** the following directory to store website files: 
 ```
@@ -116,7 +119,8 @@ sudo systemctl enable nfs-server.service
 sudo systemctl status nfs-server.service
 ```
 
-![pix8](https://user-images.githubusercontent.com/74002629/183051438-77d0ecbe-0812-487a-b754-b2837a67e7e3.PNG)
+
+![n5](https://user-images.githubusercontent.com/101978292/215037948-d71556b0-5222-4a60-abfb-db36dd557e3b.jpg)
 
 18. Export the mounts for webservers’ subnet cidr to connect as clients. For simplicity, install your all three Web Servers inside the same subnet, but in production set up you would probably want to separate each tier inside its own subnet for higher level of security.
 19. Set up permission that will allow our Web servers to read, write and execute files on NFS:
@@ -152,7 +156,8 @@ sudo exportfs -arv
 ```
 rpcinfo -p | grep nfs
 ```
-![pixSG](https://user-images.githubusercontent.com/74002629/183053344-f40f0d65-5670-4613-835c-1da0137e0416.PNG)
+
+![n6](https://user-images.githubusercontent.com/101978292/215038101-3627d240-734d-4590-a8c0-cfae1fc50eba.jpg)
 
 
 ### STEP 2 — CONFIGURE THE DATABASE SERVER
