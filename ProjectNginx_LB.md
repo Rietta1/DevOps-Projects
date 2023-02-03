@@ -150,10 +150,10 @@ http://Load-Balancer-Public-IP-Address/index.php
 #### Step 2 - REGISTER A NEW DOMAIN NAME AND CONFIGURE SECURED CONNECTION USING SSL/TLS CERTIFICATES
 
 1. Register a domain name with any registrar of your choice in any domain zone on Route53 or any domain name provider (e.g. .com, .net, .org, .edu, .info, .xyz or any other)
-2. If registered on another name domain provider, forword the nameserver to Route53 by copying the the nameservers provided by Route53 DNS to the domain name bought on the provider site.
-2. Assign an Elastic IP to your Nginx LB server and associate your domain name with this Elastic IP
+2. If registered on another name domain provider, forword the nameserver created by Route53 hosted zone by creating a public hosted zone and copying the the nameservers provided by Route53 hosted zone to the domain name bought on the provider site.
+2. Assign an Elastic IP to your Nginx LB server or *just the normal on-static public ip address,if you are just practicing* and associate your domain name with this Elastic IP
 3. Create a static IP address, allocate the Elastic IP and associate it with an Nginx_LB EC2 server to ensure your IP remain the same everytime you restart the instance.
-4. Update **A record** in your registrar with A record name `www.rietta.online` and `rietta.online` to point to Nginx LB using Elastic IP address
+4. Click on create record and create two **A record** in your registrar with A record name `www.rietta.online` and `rietta.online` to point to Nginx LB using Elastic IP address or on-static public ip address
 
 
 ![Screenshot 2023-02-03 005753](https://user-images.githubusercontent.com/101978292/216478012-c65ca183-9adc-4a41-b82f-1eba3e8e9462.jpg)
