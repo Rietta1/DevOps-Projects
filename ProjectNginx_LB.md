@@ -19,6 +19,8 @@ Nginx serves as a single point of access to a distributed web application that r
 
 Our achitecture will look something like this:
 
+
+
 ![pix18](https://user-images.githubusercontent.com/74002629/184848922-0b777f13-bef5-4361-9a97-a3996c451f3e.PNG)
 
 
@@ -38,7 +40,6 @@ sudo apt update
 sudo apt install nginx
 ```
 
-![image](https://user-images.githubusercontent.com/85270361/168736316-0b0aa96e-afaf-4328-aaaf-288bd13fcd22.png)
 
 3. Disable the default link
 
@@ -56,10 +57,8 @@ sudo  unlink /etc/nginx/sites-enabled/default
  sudo systemctl status nginx
 ```
 
-![image](https://user-images.githubusercontent.com/85270361/168772085-c54796fa-a193-48bf-8baa-3b67d3bbae3a.png)
 
-
-![image](https://user-images.githubusercontent.com/85270361/168772167-fdd41362-6b53-45ff-a750-73ea3100286a.png)
+![Screenshot 2023-02-02 021024](https://user-images.githubusercontent.com/101978292/216476419-7891207f-28db-4c63-85e3-89040c96d11f.jpg)
 
 
 5. Let us now make use of above upstream and server block to create a load balancer for a domain. We need to create a configuration file using a text editor.
@@ -93,7 +92,9 @@ server {
 }
 ```
 
-![image](https://user-images.githubusercontent.com/85270361/168773609-d451c76e-3a7a-4ea2-939f-0a0b94175be1.png)
+![Screenshot 2023-02-02 203538](https://user-images.githubusercontent.com/101978292/216476469-48b32712-1173-457e-86ec-582579b78b40.jpg)
+
+
 
 7. We need to test our Nginx config file to know if there is any syntax error.**
 
@@ -116,17 +117,23 @@ server {
 
 ```
 
+![Screenshot 2023-02-02 203753](https://user-images.githubusercontent.com/101978292/216479987-94ffc0ab-6512-433f-8679-45e406bb7ce4.jpg)
+
+
 10. We need to link our config file from site-enabled to site-available.
 
 ```
  cd /etc/nginx/sites-enabled/
 
  sudo ln -s ../sites-available/load_balancer.conf .
+ 
+ ls -l
 
  sudo systemctl reload nginx
 ```
 
-![image](https://user-images.githubusercontent.com/85270361/168774097-bbabfd28-e3b6-482c-872d-0d164b198a8a.png)
+
+![23](https://user-images.githubusercontent.com/101978292/216480140-00ce2333-5600-4df5-a7d2-884fcad4a577.jpg)
 
 
 11. We need to confirm if out load balancer is actually working.
@@ -139,7 +146,6 @@ http://Load-Balancer-Public-IP-Address/index.php
 ![image](https://user-images.githubusercontent.com/85270361/168774861-0277feae-dc27-47b6-9e6c-4cc43cf70cc8.png)
 
 
-![image](https://user-images.githubusercontent.com/85270361/168774967-9010890d-cfd7-4cf0-99e1-95811f088848.png)
 
 
 #### Step 2 - REGISTER A NEW DOMAIN NAME AND CONFIGURE SECURED CONNECTION USING SSL/TLS CERTIFICATES
@@ -150,11 +156,14 @@ http://Load-Balancer-Public-IP-Address/index.php
 3. Create a static IP address, allocate the Elastic IP and associate it with an Nginx_LB EC2 server to ensure your IP remain the same everytime you restart the instance.
 4. Update **A record** in your registrar with A record name `www.rietta.online` and `rietta.online` to point to Nginx LB using Elastic IP address
 
-![pix8](https://user-images.githubusercontent.com/74002629/184852049-7edb350f-1061-4e95-b545-4ec159324986.PNG)
+
+![Screenshot 2023-02-03 005753](https://user-images.githubusercontent.com/101978292/216478012-c65ca183-9adc-4a41-b82f-1eba3e8e9462.jpg)
 
 5. Check that your Web Servers can be reached from your browser using new domain name using HTTP protocol – http://rietta.online
 
-![pix7](https://user-images.githubusercontent.com/74002629/184852273-381a3fdc-b150-4452-b01e-c062067456da.PNG)
+
+![Screenshot 2023-02-02 192720](https://user-images.githubusercontent.com/101978292/216478117-b1ba11ba-20c8-4c52-a439-9bd58da7930f.jpg)
+
 
 6. Configure Nginx to recognize your new domain name, update your nginx.conf with server_name www.buildwithme.link instead of server_name www.rietta.online
 7. Next, install certbot and request for an SSL/TLS certificate, first install certbot dependency: 
@@ -172,14 +181,17 @@ sudo apt install certbot -y
 ```
 sudo certbot --nginx -d rietta.online -d www.rietta.online
 ```
-![pix12](https://user-images.githubusercontent.com/74002629/184856111-572b3705-6232-4b20-ae1a-c85534e8fb1a.PNG)
+
+![Screenshot 2023-02-02 205201](https://user-images.githubusercontent.com/101978292/216479067-31b6615c-d3f4-4b3f-81f7-853b79bd9510.jpg)
 
 10. Test secured access to your Web Solution by trying to reach https://rietta.online , if successful, you will be able to access your website by using HTTPS protocol (that uses TCP port 443) and see a padlock pictogram in your browser’s search string. Click on the padlock icon and you can see the details of the certificate issued for your website.
 
-![pix14](https://user-images.githubusercontent.com/74002629/184856345-02ba08bc-ac02-4ef4-a7a7-47949e29f58a.PNG)
 
-![pix16](https://user-images.githubusercontent.com/74002629/184856437-3d34d4c2-f96a-4707-bc65-09226fb4d47f.PNG)
+![Screenshot 2023-02-02 192752](https://user-images.githubusercontent.com/101978292/216479632-699ee07e-0a5e-462a-834f-450f18291652.jpg)
 
+![S](https://user-images.githubusercontent.com/101978292/216479707-6e3bcabe-91c8-4510-acd9-e0017fa9a145.jpg)
+
+![Screenshot 2023-02-02 195335](https://user-images.githubusercontent.com/101978292/216479830-3a966d9b-ee6a-4539-969a-7f943a30fe31.jpg)
 
 
 # Configure Secure Connection To The Load Balancer
