@@ -143,8 +143,7 @@ http://Load-Balancer-Public-IP-Address/index.php
 
 ```
 
-![image](https://user-images.githubusercontent.com/85270361/168774861-0277feae-dc27-47b6-9e6c-4cc43cf70cc8.png)
-
+![1](https://user-images.githubusercontent.com/101978292/216481310-9892c90f-14f2-4e69-b680-4dc2fa0a9440.jpg)
 
 
 
