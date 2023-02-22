@@ -30,7 +30,7 @@ $ sudo systemctl status nginx
 
 
 
- 4.  The server is running and we can access it locally and from the Internet but to access it from the internet port 80 must be open to allow traffic from the internet in.
+ 4.  The server is running and we can access it locally and from the Internet but to access it from the internet port 80 must be open to allow traffic from the internet in
 
 
 5.  To test that the server can be accessed from the internet, open a browser and type the following url with the public IP of your Ubuntu instance; 
