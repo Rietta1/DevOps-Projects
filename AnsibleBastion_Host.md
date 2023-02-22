@@ -5,7 +5,7 @@
 By automating the majority of repetitive chores with Ansible Configuration Management, this project will increase your appreciation of DevOps tools while also boosting your comfort level with writing code in declarative languages like YAML.
 <br></br>
 
-![Capture1](https://user-images.githubusercontent.com/74002629/185382955-28d67f00-8b19-4caa-8dd2-048cea6c0b74.PNG)
+![Screenshot 2023-02-22 010300](https://user-images.githubusercontent.com/101978292/220486930-f8fa9786-6aab-4f8e-81da-215b00e0bb0c.jpg)
 
 <br></br>
 
@@ -43,6 +43,9 @@ sudo apt update
 sudo apt install ansible
 ```
 
+![1](https://user-images.githubusercontent.com/101978292/220487120-d4b01ad5-fde0-41fe-8703-a35b0577a710.jpg)
+
+
 4. Check your Ansible version by running `ansible --version`
 
 5. Configure Jenkins build job to save your repository content every time you change it. See [project 9](https://github.com/Rietta1/DevOps-Projectss/blob/main/Project_CICD_ToolsWeb.md) for detailed steps
@@ -51,15 +54,22 @@ sudo apt install ansible
 
   - Configure Webhook in GitHub and set webhook to trigger ansible build.
 
-  ![pix1](https://user-images.githubusercontent.com/74002629/185372369-e33c094e-f075-4bdc-a4f3-e8dad525b60d.PNG)
-  
+  ![3](https://user-images.githubusercontent.com/101978292/220487202-2edbfecc-69d6-45f2-890c-f528580ee547.jpg)
+
+
+  ![2](https://user-images.githubusercontent.com/101978292/220487151-7e2797c8-d27f-467a-abf4-c5bd4f94b116.jpg)
+
+
   - Configure a Post-build job to save all (**) files. 
 
   - Test your setup by making some change in README.MD file in master branch and make sure that builds starts automatically and Jenkins saves the files (build artifacts) in following folder `ls /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/`
+  - 
+  ![4](https://user-images.githubusercontent.com/101978292/220487256-92baa598-b780-43de-88e4-bb2e4ce3b07e.jpg)
 
-  ![pix2](https://user-images.githubusercontent.com/74002629/185372377-a6e7429c-e066-40f6-a098-961d3681b14f.PNG)
+  ![5](https://user-images.githubusercontent.com/101978292/220487327-7b647ab9-e0da-42a3-ab1f-b8a035850586.jpg)
 
-  ![pix6](https://user-images.githubusercontent.com/74002629/185372410-082abc5b-7212-4a42-bb20-532118c46458.PNG)
+  ![6](https://user-images.githubusercontent.com/101978292/220487375-1e0f7e6b-7dc5-4b8e-a451-fa8d84aed891.jpg)
+
     
 #### Step 2 – Prepare your development environment using Visual Studio Code
 
@@ -78,6 +88,10 @@ Host Jenkins-Ansible
   ServerAliveInterval 60
 
 ```
+
+![12](https://user-images.githubusercontent.com/101978292/220488545-3aa55a48-217a-4655-8c47-3bf3f287ef46.jpg)
+
+
 - Save it, and click on the green corner again, click connect to host and click Jenkins-Ansible, follow the appropriate prompt and you are connected.
 
 
@@ -114,7 +128,9 @@ ssh-add <path-to-private-key>
 
 3. Confirm the key has been added with this command, you should see the name of your key: `ssh-add -l`
 
-![pix8](https://user-images.githubusercontent.com/74002629/185372433-a4eb4ba5-d290-422b-91e6-8a5260e0dad5.PNG)
+
+![7 ssh agent](https://user-images.githubusercontent.com/101978292/220487511-a962a5e2-2d59-456b-8ecc-bca8ea024b19.jpg)
+
 
 5. Now, ssh into your Jenkins-Ansible server using ssh-agent: `ssh -A ubuntu@public-ip`
 
@@ -137,8 +153,7 @@ ssh-add <path-to-private-key>
 <Load-Balancer-Private-IP-Address> ansible_ssh_user='ubuntu'
 ```
 
-![pix11](https://user-images.githubusercontent.com/74002629/185373588-0cb4a21a-d0a6-4bb3-9c21-475bc402011f.PNG)
-
+![8](https://user-images.githubusercontent.com/101978292/220487577-f316cc24-e398-40f4-b090-6ddb85c322e2.jpg)
 
 
 #### Step 5 – Create a Common Playbook
@@ -178,7 +193,8 @@ Now we give Ansible the instructions on what you needs to be performed on all se
         state: latest
 ```
 
-![pix12](https://user-images.githubusercontent.com/74002629/185373600-c9815226-51e1-4e1a-ac92-b17b2e3713ea.PNG)
+  ![9](https://user-images.githubusercontent.com/101978292/220487668-15c0769c-9d1d-4bd0-8e93-64d222624cc3.jpg)
+
 
 2. This playbook is divided into two parts, each of them is intended to perform the same task: install **wireshark utility** (or make sure it is updated to the latest version) on your RHEL 8 and Ubuntu servers. It uses **root** user to perform this task and respective package manager: **yum** for RHEL 8 and **apt** for Ubuntu.
 
@@ -226,12 +242,11 @@ git commit -m "commit message"
 ```
 
 4. Create a Pull request (PR)
-![pix14](https://user-images.githubusercontent.com/74002629/185374143-0881f820-48ac-4ff6-bafe-4a8d9c180341.PNG)
 
-3. Once your code changes appear in master branch – Jenkins will do its job and save all the files (build artifacts) to **/var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/** directory on Jenkins-Ansible server.
 
-![pix17](https://user-images.githubusercontent.com/74002629/185374194-509b7ab2-0007-46ac-8e78-836a249ec73c.PNG)
+5. Once your code changes appear in master branch – Jenkins will do its job and save all the files (build artifacts) to **/var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/** directory on Jenkins-Ansible server.
 
+  
 
 #### Step 7 – Connect Jenkins-Ansible server to all the other servers
 
@@ -276,16 +291,17 @@ ssh ec2-user@<Private-IP-Address>
 ansible-playbook -i /var/lib/jenkins/jobs/ansible/builds/<build-number>/archive/inventory/dev.yml /var/lib/jenkins/jobs/ansible/builds/<build-number>/archive/playbooks/common.yml
 ```
 
+ ![14](https://user-images.githubusercontent.com/101978292/220488218-c85de7a3-bfbf-430b-9eb2-9c7a0300b857.jpg)
 
-![pix20](https://user-images.githubusercontent.com/74002629/185374713-40418adb-3758-4b45-823e-a2825607d3f5.PNG)
+![15](https://user-images.githubusercontent.com/101978292/220488188-720a7e73-aa0d-4df2-b01f-8d1e5392f5b6.jpg)
+
 
 3. If your command ran successfully, you go to each of the servers and check if wireshark has been installed by running `which wireshark` or `wireshark --version`
 
-![pix22](https://user-images.githubusercontent.com/74002629/185374839-0f2a05ba-78f7-44c5-abc6-d72c84c258de.PNG)
-![pix23](https://user-images.githubusercontent.com/74002629/185374858-d24eacde-dbf0-46f9-a3e5-72ede5f3b0cd.PNG)
 
 4. Your updated with Ansible architecture now looks like this:
 
-![ansible_architecture](https://user-images.githubusercontent.com/10243139/129184324-9ba05d71-784c-4679-9364-e84bac931f80.png)
+![Screenshot 2023-02-22 010300](https://user-images.githubusercontent.com/101978292/220488482-467cfac2-0e66-45d2-9091-553a69dc748f.jpg)
+
 
 5. You have just automated your routine tasks by implementing your first Ansible project with Jenkins
