@@ -68,13 +68,13 @@ stored. This is merely for easy organization of your work. It is not an Ansible 
 4. Move **common.yml** file into the newly created **static-assignments** folder.
 ![pix2](https://user-images.githubusercontent.com/74002629/187199132-243aa796-c6f0-4697-97d8-caa4aa53861a.PNG)
 
-6. Inside **site.ym**l file, import **common.yml** playbook:
+5. Inside **site.ym**l file, import **common.yml** playbook:
 ```
 ---
 - hosts: all
 - import_playbook: ../static-assignments/common.yml
 ```
-7. Run **ansible-playbook** command against the **dev** environment. Since you need to apply some tasks to your dev servers and wireshark is already 
+6. Run **ansible-playbook** command against the **dev** environment. Since you need to apply some tasks to your dev servers and wireshark is already 
 installed – you can go ahead and create another playbook under static-assignments and name it **common-del.yml**. In this playbook, configure deletion of wireshark utility.
 ```
 ---
@@ -103,7 +103,7 @@ installed – you can go ahead and create another playbook under static-assignme
       purge: yes
       autoclean: yes
 ```
-8. update site.yml with - import_playbook: `../static-assignments/common-del.yml` instead of `common.yml` and run it against dev servers:
+7. update site.yml with - import_playbook: `../static-assignments/common-del.yml` instead of `common.yml` and run it against dev servers:
 ```
 cd /home/ubuntu/ansible-config-mgt/
 ansible-playbook -i inventory/dev.yml playbooks/site.yaml
@@ -140,7 +140,7 @@ ansible-playbook -i inventory/dev.yml playbooks/site.yaml
 <Web2-UAT-Server-Private-IP-Address> ansible_ssh_user='ec2-user' 
 ```
 
-5. ssh into the web1-uat and web2-uat instance.
+5. ssh into the web1-uat and web2-uat instance . See [Project11](https://github.com/Rietta1/DevOps-Projects/blob/main/AnsibleBastion_Host.md) on how to do this
 
 6. In **/etc/ansible/ansible.cfg** file uncomment the **inventory** and **roles_path** string and provide a full path to your roles directory, so Ansible knows where to find configured roles and inventory.
 ```
