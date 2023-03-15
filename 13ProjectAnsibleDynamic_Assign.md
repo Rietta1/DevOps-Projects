@@ -22,7 +22,7 @@ On the other hand, when include module is used, all statements are processed onl
 
 *Note: For most projects, static assignments are preferred as they are more reliable. Dynamic assignments can be challenging in the debugging process. However, they can be useful for environment specific variables as in this project.*
 
-#### Introducing Dynamic Assignment Into the structure
+### STEP 1- Introducing Dynamic Assignment Into the structure
 
 In the ```https://github.com/<your-name>/ansible-config-mgt GitHub repository ```, start a new branch and call it dynamic-assignments.
   
@@ -30,7 +30,7 @@ In the ```https://github.com/<your-name>/ansible-config-mgt GitHub repository ``
 
 
 
-Create a new folder, name it dynamic-assignments. Then inside this folder, create a new file and name it env-vars.yml. site.yml will be instructed to include this playbook later. 
+- Create a new folder, name it dynamic-assignments. Then inside this folder, create a new file and name it env-vars.yml. site.yml will be instructed to include this playbook later. 
 
 GitHub will have the following structure at this point:
 ```
@@ -51,7 +51,7 @@ GitHub will have the following structure at this point:
 
 Since Ansible will be used to configure multiple environments and each of these environments will have certain unique attributes, such as servername, ip-address etc., there has to be a way to set values to variables per specific environment.
 
-Create a folder to keep each environment’s variables file and name it as env-vars. Then for each environment, create new YAML files which will be used to set variables.
+- Create a folder to keep each environment’s variables file and name it as env-vars. Then for each environment, create new YAML files which will be used to set variables.
 
 The layout should now look like this:
 ```
@@ -77,76 +77,85 @@ The layout should now look like this:
 ![project13dir](https://user-images.githubusercontent.com/41236641/156893574-d0d6f450-74fe-4286-9556-9638f25b4c23.PNG)
 
 
-Paste the instruction below into the env-vars.yml file:
+- Paste the instruction below into the env-vars.yml file:
+
 ```yml
 ---
+# - name: collate variables from env specific file, if it exists
+#   include_vars: "{{ item }}"
+#   with_first_found:
+#     - "{{ playbook_dir }}/../env_vars/{{ "{{ inventory_file }}.yml"
+#     - "{{ playbook_dir }}/../env_vars/default.yml"
+#   tags:
+#     - always
+
 - name: collate variables from env specific file, if it exists
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ playbook_dir }}/../env_vars/{{ "{{ inventory_file }}.yml"
-    - "{{ playbook_dir }}/../env_vars/default.yml"
-  tags:
-    - always
+  hosts: all
+  tasks:
+    - name: looping through list of available files
+      include_vars: "{{ item }}"
+      with_first_found:
+        - files:
+            - uat.yml
+            - prod.yml
+            - stage.yml
+            - dev.yml
+          paths:
+            - "{{ playbook_dir }}/../env-vars"
+      tags:
+        - always
 ```
 
 ![project13solution](https://user-images.githubusercontent.com/41236641/156893603-52304f80-7081-4305-a478-af0c9e62e433.PNG)
 
 
-Three things to note from the above code:
-
-The 'include_vars' syntax has been used instead of include. This is because Ansible developers decided to separate different features of the module. From Ansible version 2.8, the include module is deprecated and variants of include_* must be used. These are:
-
-```
-include_role
-include_tasks
-include_vars
-```
-In the same version, variants of import were also introduced, such as:
-
-```
-import_role
-import_tasks
-```
-
-Special variables {{ playbook_dir }} and {{ inventory_file }} are used in the above code. {{ playbook_dir }} will help Ansible to determine the location of the running playbook, and from there navigate to other path on the filesystem. {{ inventory_file }} on the other hand will dynamically resolve to the name of the inventory file being used, then append .yml, so that it picks up the required file within the env-vars folder.
-
-The variables are included using a loop. with_first_found implies that, looping through the list of files, the first one found is used. This is good practice so that the default values can be set in case an environment specific env file does not exist.
 
 
-#### Update site.yml with dynamic assignments
+### STEP 2- Update site.yml with dynamic assignments
 
-Update site.yml file to make use of the dynamic assignment. (At this point, testing cannot be done yet. This is just setting the stage for what is to come).
+- Update site.yml file to make use of the dynamic assignment. (At this point, testing cannot be done yet. This is just setting the stage for what is to come).
 
 site.yml should now look like this:
 ```yml
 ---
 - name: Include dynamic variables 
   hosts: all
-  tasks:
-    - import_playbook: ../static-assignments/common.yml 
-    - import_playbook: ../dynamic-assignments/env-vars.yml
+
+- name: import common file
+  import_playbook: ../static-assignments/common.yml
   tags:
     - always
 
-- name: Webserver assignment
-  hosts: webservers
-    - import_playbook: ../static-assignments/webservers.yml
+- name: include env-vars file
+  import_playbook: ../dynamic-assignments/env-vars.yml
+  tags:
+    - always
+
+- name: import database file
+  import_playbook: ../static-assignments/db.yml
+
+- name: import webservers file
+  import_playbook: ../static-assignments/webservers.yml
+
+- name: import Loadbalancers assignment
+  import_playbook: ../static-assignments/lb.yml
+  when: load_balancer_is_required 
 ```
 
 ![Project13dir2](https://user-images.githubusercontent.com/41236641/156893696-4797c629-acaf-4b6a-81a1-e8941d2f3802.PNG)
 
 
-#### Community Roles
+### STEP 3- Community Roles
 
 It is time to create a role for MySQL database - it should install the MySQL package, create a database and configure users. There are tons of roles that have already been developed by other open source engineers. These roles are actually production ready, and dynamic to accomodate most of Linux flavours. With Ansible Galaxy again, we can simply download a ready to use ansible role. 
 
-#### Download Mysql Ansible Role
+#### 1. Download Mysql Ansible Role
 
-Browse the available community roles [here](https://galaxy.ansible.com/home)
+- Browse the available community roles [here](https://galaxy.ansible.com/home)
 
 This project will make use of a MySQL role developed by [geerlingguy](https://galaxy.ansible.com/geerlingguy/mysql).
 
-On Jenkins-Ansible server make sure that git is installed with git --version, then go to ‘ansible-config-mgt’ directory and run:
+- On Jenkins-Ansible server make sure that git is installed with git --version, then go to ‘ansible-config-mgt’ directory and run:
 
 ```
 git init
@@ -156,7 +165,8 @@ git branch roles-feature
 git switch roles-feature
 ```
 
-Inside roles directory, create a new MySQL role with ansible-galaxy install geerlingguy.mysql and rename the folder to mysql:
+
+- Inside roles directory, create a new MySQL role with ansible-galaxy install geerlingguy.mysql and rename the folder to mysql:
 
 ```
 ansible-galaxy install geerlingguy.mysql
@@ -177,14 +187,14 @@ git push --set-upstream origin roles-feature
 
 Create a Pull Request and merge it to main branch on GitHub.
 
-#### Load Balancer roles
+#### 2. Load Balancer roles
 
 In order to be able to choose which Load Balancer to use, Nginx or Apache, we will need to have two roles:
 
 1. Nginx
 2. Apache
 
-- With the experience gained from the projects on Ansible so far, it is understood that roles could either be developed or recreated easily from available roles in the community. 
+With the experience gained from the projects on Ansible so far, it is understood that roles could either be developed or recreated easily from available roles in the community. 
 
 ![Project13ade](https://user-images.githubusercontent.com/41236641/156893897-a38e917d-a222-4d50-818c-7e1991b2e929.PNG)
 
@@ -210,19 +220,51 @@ On main.yml in Apache:
 ![project13main1](https://user-images.githubusercontent.com/41236641/156894034-3b77dc72-13c9-44f0-a400-bc0339e536b5.PNG)
 
 Create loadbalancers.yml file in static-assignments folder and copy the following code:
+
 ```
+---
 - hosts: lb
   roles:
     - { role: nginx, when: enable_nginx_lb and load_balancer_is_required }
     - { role: apache, when: enable_apache_lb and load_balancer_is_required }
 ```
 
+Create loadbalancers.yml file in static-assignments folder and copy the following code:
+
+```
+---
+ - hosts: db
+   roles:
+      - mysql
+   become: true
+```
+
+
 Update site.yml file with the following code:
 ```
-- name: Loadbalancers assignment
-       hosts: lb
-         - import_playbook: ../static-assignments/loadbalancers.yml
-        when: load_balancer_is_required 
+---
+- name: Include dynamic variables 
+  hosts: all
+
+- name: import common file
+  import_playbook: ../static-assignments/common.yml
+  tags:
+    - always
+
+- name: include env-vars file
+  import_playbook: ../dynamic-assignments/env-vars.yml
+  tags:
+    - always
+
+- name: import database file
+  import_playbook: ../static-assignments/db.yml
+
+- name: import webservers file
+  import_playbook: ../static-assignments/webservers.yml
+
+- name: import Loadbalancers assignment
+  import_playbook: ../static-assignments/lb.yml
+  when: load_balancer_is_required 
 ```
 
 ![Poject13site](https://user-images.githubusercontent.com/41236641/156894116-55e7b85b-4058-4bb6-aace-56a064bb917d.PNG)
