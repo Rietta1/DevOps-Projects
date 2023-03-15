@@ -1,6 +1,7 @@
 ## ANSIBLE REFACTORING AND STATIC ASSIGNMENTS (IMPORTS AND ROLES)
 
-![Capture](https://user-images.githubusercontent.com/74002629/187196466-07bfe88d-4571-43ba-9d7e-fa757395432d.PNG)
+
+![Screenshot 2023-03-10 005334](https://user-images.githubusercontent.com/101978292/224187665-e3c4b53b-e1c9-4956-824c-b66d887ca7b6.jpg)
 
 ### Task
 1. Refactor your Ansible code, create assignments, and use the imports functionality.
@@ -29,25 +30,35 @@ chmod -R 0777 /home/ubuntu/ansible-config-artifact
 3. Go to Jenkins web console -> **Manage Jenkins** -> **Manage Plugins** -> on **Available** tab search for **Copy Artifact** and install this plugin without 
 restarting Jenkins.
 
-4. Create a new **Freestyle project** (see [Project 9](https://github.com/cynthia-okoduwa/DevOps-projects/blob/main/Project9.md)) and name it 
+4. Create a new **Freestyle project** (see [Project 9](https://github.com/Rietta1/DevOps-Projects/blob/main/Project_CICD_ToolsWeb.md) and name it 
 **save_artifacts**.
 
 5. This project will be triggered by completion of the existing ansible project. Configure it accordingly:
 
   - In **General** tab, enter your desired no for the **Max # of build to keep** (In my case 2)
+ 
+ ![1](https://user-images.githubusercontent.com/101978292/224188054-acd1ef3b-2c65-49e4-b662-fb93f06ff301.jpg)
+
   - Under Build Triggers, Enter **ansible.** and mark trigger buils when compeleted
 
- ![Capture1](https://user-images.githubusercontent.com/74002629/187196502-3cddcd1e-5839-4930-93cc-67d43016a83f.PNG)
+![1b](https://user-images.githubusercontent.com/101978292/224188017-903a4b37-8ac3-4782-9f3e-a53c81b21091.jpg)
+
+
 
 6. The main idea for save_artifacts project is to save artifacts into `/home/ubuntu/ansible-config-artifact directory`. To achieve this, create a build 
 step and choose `Copy artifacts from other project`, specify **ansible** as a source project and `/home/ubuntu/ansible-config-artifact` as a target directory.
 
-  ![Capture2](https://user-images.githubusercontent.com/74002629/187196539-b70887b6-587f-4e85-8572-0f60e094e028.PNG)
+  
+![2](https://user-images.githubusercontent.com/101978292/224187960-13ad4f40-5fa3-4af5-aa7b-f54ce21c524a.jpg)
 
 7. Test your set up by making some change in README.MD file inside your ansible-config-mgt repository (right inside master branch).
 If both Jenkins jobs have completed one after another – you shall see your files inside /home/ubuntu/ansible-config-artifact directory and it will be updated 
 with every commit to your master branch.
-  ![Capture3](https://user-images.githubusercontent.com/74002629/187196549-ccd85653-08eb-4335-ac99-5bd1436dcf7c.PNG)
+
+ 
+
+![4](https://user-images.githubusercontent.com/101978292/224188157-57e5a6cb-3ba3-4cde-a48d-4880f6082fc0.jpg)
+
 
 ### Step 2 – Refactor Ansible code by importing other playbooks into site.yml
 In Project 11 I wrote all tasks in a single playbook **common.yml**, a simple set of instructions for only 2 types of OS, but imagine there are many more tasks 
@@ -66,7 +77,8 @@ configuration. In other words, site.yml will become a parent to all other playbo
 stored. This is merely for easy organization of your work. It is not an Ansible specific concept.
 
 4. Move **common.yml** file into the newly created **static-assignments** folder.
-![pix2](https://user-images.githubusercontent.com/74002629/187199132-243aa796-c6f0-4697-97d8-caa4aa53861a.PNG)
+
+![5](https://user-images.githubusercontent.com/101978292/224188241-392b86d9-00fa-4202-ae7a-56aa5f7492f7.jpg)
 
 5. Inside **site.ym**l file, import **common.yml** playbook:
 ```
@@ -108,12 +120,10 @@ installed – you can go ahead and create another playbook under static-assignme
 cd /home/ubuntu/ansible-config-mgt/
 ansible-playbook -i inventory/dev.yml playbooks/site.yaml
 ```
-![pix4](https://user-images.githubusercontent.com/74002629/187199159-819a2a3a-1c5e-49f7-91da-22e346baaa07.PNG)
+
 
 9. Confirm that wireshark is deleted on all the servers by running `wireshark --version`
 
-![pix6](https://user-images.githubusercontent.com/74002629/187199257-b770119d-ff7b-4390-b461-6ffe17a16c33.PNG)
-![pix7](https://user-images.githubusercontent.com/74002629/187199276-e0b5e4e0-3a08-4466-8cc1-48b3ca2c9ce7.PNG)
 
 ### Step 3 – Configure UAT Webservers with a role ‘Webserver’
 1. Launch 2 fresh EC2 instances using RHEL 8 image, name them accordingly – Web1-UAT and Web2-UAT.
@@ -150,7 +160,25 @@ and
 
 roles_path    = /home/ubuntu/ansible-config-mgt/roles
 ```
-![step3pix4](https://user-images.githubusercontent.com/74002629/187199413-51e7f0e2-9674-4f83-9e82-0148c05fd505.PNG)
+![6](https://user-images.githubusercontent.com/101978292/224188391-96afc484-731e-472f-8174-97fa7318455b.jpg)
+
+
+![9](https://user-images.githubusercontent.com/101978292/224189047-64b38590-0a11-4433-91f0-c4befaf2fcd2.jpg)
+
+
+7. Check if the servers can be reached by running these code:
+
+```
+ansible all -m ping
+
+or
+
+ansible uat-webservers -m ping
+
+```
+
+![7](https://user-images.githubusercontent.com/101978292/224188405-9bca13f4-938f-4182-855d-d42fc70cc3fc.jpg)
+
 
 7. Time to add some logic to the webserver role. Go into **tasks** directory, and within the **main.yml** file, write configuration tasks to do the following:
   - Install and configure Apache (httpd service)
@@ -204,7 +232,6 @@ roles_path    = /home/ubuntu/ansible-config-mgt/roles
   roles:
      - webserver
 ```
-![step4pix1](https://user-images.githubusercontent.com/74002629/187206058-776ee522-a1f6-4934-9dc8-dfb987b3dad4.PNG)  
 
 2. The entry point to the ansible configuration is the **site.yml** file. so, refer your uat-webservers.yml role inside site.yml in this format:
 ```
@@ -219,19 +246,20 @@ roles_path    = /home/ubuntu/ansible-config-mgt/roles
   
 ### Step 5 – Commit & Test
 1. Commit your changes, create a Pull Request and merge them to master branch, make sure webhook triggered two consequent Jenkins jobs, they ran successfully and copied all the files to your Jenkins-Ansible server into **/home/ubuntu/ansible-config-artifact/** directory.
-![step4pix6](https://user-images.githubusercontent.com/74002629/187206146-9236d753-bcd1-4282-b593-0bfc183c8d52.PNG)  
+ 
   
 2. Now run the playbook against your uat inventory in the ansible-config-artifact folder in which the pull as just been moved to and see what happens:
 ```
 sudo ansible-playbook -i /home/ubuntu/ansible-config-artifact/inventory/uat.yml /home/ubuntu/ansible-config-artifact/playbooks/site.yml
-```
 
-or
-```
+  OR
+
 cd ansible-config-artifact
 
 ansible-playbook -i inventory/uat.yml playbooks/site.yml
 ```
 ![pix8](https://user-images.githubusercontent.com/74002629/187206838-19510d55-419a-4ee6-9aca-811b498000cd.PNG)
+
+  ![9](https://user-images.githubusercontent.com/101978292/224189106-7142ab8d-07e0-4866-ba5f-1c1bcdebac38.jpg)
 
 3. You should be able to see both of your UAT Web servers configured and you can try to reach them from your browser.
