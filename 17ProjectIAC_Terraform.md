@@ -704,122 +704,6 @@ resource "aws_lb_listener" "web-listener" {
 ```
 
 ### Create an AUTO SCALLING GROUP (ASG)
-
-This follows the same set up as external ALB
-
-- Create a file called ```asg-wordpress-tooling.tf```
-
-- Add the following Code
-
-```
-# ----------------------------
-#Internal Load Balancers for webservers
-#---------------------------------
-
-resource "aws_lb" "ialb" {
-  name     = "ialb"
-  internal = true
-  security_groups = [
-    aws_security_group.int-alb-sg.id,
-  ]
-
-  subnets = [
-    aws_subnet.private[0].id,
-    aws_subnet.private[1].id
-  ]
-
-  tags = merge(
-    var.tags,
-    {
-      Name = "ACS-int-alb"
-    },
-  )
-
-  ip_address_type    = "ipv4"
-  load_balancer_type = "application"
-}
-
-```
-
-- Create a  Target Group for Wordpress and Tooling each
-
-```
-# --- target group  for wordpress -------
-
-resource "aws_lb_target_group" "wordpress-tgt" {
-  health_check {
-    interval            = 10
-    path                = "/healthstatus"
-    protocol            = "HTTPS"
-    timeout             = 5
-    healthy_threshold   = 5
-    unhealthy_threshold = 2
-  }
-
-  name        = "wordpress-tgt"
-  port        = 443
-  protocol    = "HTTPS"
-  target_type = "instance"
-  vpc_id      = aws_vpc.main.id
-}
-
-# --- target group for tooling -------
-
-resource "aws_lb_target_group" "tooling-tgt" {
-  health_check {
-    interval            = 10
-    path                = "/healthstatus"
-    protocol            = "HTTPS"
-    timeout             = 5
-    healthy_threshold   = 5
-    unhealthy_threshold = 2
-  }
-
-  name        = "tooling-tgt"
-  port        = 443
-  protocol    = "HTTPS"
-  target_type = "instance"
-  vpc_id      = aws_vpc.main.id
-}
-```
-
-- Create Listner for each Target Groups
-```
-# For this aspect a single listener was created for the wordpress which is default,
-# A rule was created to route traffic to tooling when the host header changes
-
-resource "aws_lb_listener" "web-listener" {
-  load_balancer_arn = aws_lb.ialb.arn
-  port              = 443
-  protocol          = "HTTPS"
-  certificate_arn   = aws_acm_certificate_varietta.certificate_arn
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.wordpress-tgt.arn
-  }
-}
-
-# listener rule for tooling target
-
-resource "aws_lb_listener_rule" "tooling-listener" {
-  listener_arn = aws_lb_listener.web-listener.arn
-  priority     = 99
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.tooling-tgt.arn
-  }
-
-  condition {
-    host_header {
-      values = [rietta.link"]
-    }
-  }
-}
-```
-
-### CREATING AUSTOALING GROUPS
 We need to configure our ASG to be able to scale the EC2s out and in depending on the application traffic.
 
 we need to create the launch template and the the AMI before creating the ASG. For now we will use a random AMI from AWS.
@@ -1442,7 +1326,6 @@ db_name = "Doeita-db"
 
 ```
 
-[HERE IS A LINK TO MY REPO FOR THIS PROJECT](https://github.com/royalt1234/terrafrom-prj17-code/tree/master/terraform)
 
 ## SIDE NOTE
 
